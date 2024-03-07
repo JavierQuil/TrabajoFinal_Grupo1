@@ -1,9 +1,9 @@
 import streamlit as st
-from PIL import Image
 import pandas as pd
 import numpy as np
 import pickle
 from sklearn.preprocessing import StandardScaler
+from PIL import Image
 import requests
 from io import BytesIO
 
@@ -17,9 +17,9 @@ response = requests.get(url)
 image = Image.open(BytesIO(response.content))
 
 # Definir la interfaz de usuario en Streamlit
-st.title('Predicción de Precios de Laptops')
+st.title('PREDICCION DE PRECIOS DE LAPTOPS')
 #agregar imagen
-st.image(image, caption="Laptop 2024")
+st.image(image)
 
 # Controles de entrada para las características
 ram = st.number_input('RAM (GB)', min_value=1, max_value=64, value=8)
@@ -47,6 +47,6 @@ if st.button('Predecir Precio'):
     prediction = modelo.predict(input_scaled)
 
     # Mostrar predicción
-    st.write(f'Precio predecido: {prediction[0]:.2f} euros')
+    st.write(f'Precio de Laptop predecido: {prediction[0]:.2f} euros')
 
 

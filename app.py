@@ -8,8 +8,8 @@ import requests
 from io import BytesIO
 
 # Cargar el modelo entrenado
-with open('modelo_optimizado_Grupo_1.pkl', 'rb') as file:
-    modelo = pickle.load(file)
+#with open('modelo_optimizado_Grupo_1.pkl', 'rb') as file:
+#    modelo = pickle.load(file)
 
 # Obtener la imagen desde la URL
 url = "https://www.amsac.pe/images/Laptop2024.jpg"
@@ -17,7 +17,7 @@ response = requests.get(url)
 image = Image.open(BytesIO(response.content))
 
 # Definir la interfaz de usuario en Streamlit
-st.title('PREDICCION DE PRECIOS DE LAPTOPS')
+st.title('Predicción de Precios de Laptops')
 #agregar imagen
 st.image(image)
 
@@ -33,8 +33,12 @@ type_notebook = st.selectbox('¿Es Notebook?', ['No', 'Sí'])
 type_gaming = 1 if type_gaming == 'Sí' else 0
 type_notebook = 1 if type_notebook == 'Sí' else 0
 
-# Botón para realizar predicción
+ # Botón para realizar predicción
 if st.button('Predecir Precio'):
+    # Cargar el modelo entrenado
+    with open('modelo_optimizado_Grupo_1.pkl', 'rb') as file:
+        modelo = pickle.load(file)   
+    
     # Crear DataFrame con las entradas
     input_data = pd.DataFrame([[ram, ghz, screen_width, screen_height, type_gaming, type_notebook]],
                     columns=['Ram', 'GHz', 'Pixel_Horizontal', 'Pixel_Vertical', 'TypeName_Gaming', 'TypeName_Notebook'])
